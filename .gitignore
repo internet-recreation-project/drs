@@ -1,0 +1,12 @@
+# [ PERSISTENT DATA ] #
+*.dat
+
+# [ BUILD ] #
+drs
+
+# [ IDE ] #
+.idea
+.vscode
+
+# [ MACOS ] #
+.DS_Store
