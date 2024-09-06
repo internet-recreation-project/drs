@@ -26,16 +26,16 @@ jobs:
     - name: Build DRS (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        gcc -o drs drs.c-lpthread
+        gcc -o drs drs.c drs_functions.c -lpthread
         tar -czvf drs-linux-x86_64.tar.gz drs
 
     - name: Build DRS (macOS)
       if: matrix.os == 'macos-latest'
       run: |
         # Build for Intel Macs (x86_64)
-        clang -o drs-x86_64 drs.c-lpthread -target x86_64-apple-macos10.12
+        clang -o drs-x86_64 drs.c -lpthread -target x86_64-apple-macos10.12
         # Build for Apple Silicon Macs (arm64)
-        clang -o drs-arm64 drs.c-lpthread -target arm64-apple-macos11
+        clang -o drs-arm64 drs.c -lpthread -target arm64-apple-macos11
         # Create a universal binary
         lipo -create -output drs drs-x86_64 drs-arm64
         # Package the universal binary
