@@ -1,0 +1,32 @@
+name: Build and Release DRS
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up GCC
+      uses: egor-tensin/setup-gcc@v1
+      with:
+        version: latest
+        platform: x64
+
+    - name: Build DRS
+      run: |
+        gcc -o drs drs.c -lpthread
+        tar -czvf drs.tar.gz drs
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./drs.tar.gz
+        asset_name: drs.tar.gz
+        asset_content_type: application/gzip
