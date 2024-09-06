@@ -35,6 +35,7 @@ int main() {
     add_tld("com", "GlobalRegistry");
     add_registrar("RegistrarCo");
     register_domain("example", "Alice", "RegistrarCo", "com", 2);
+    register_domain("example2", "Alice", "RegistrarCo", "com", 2);
 
     // LOOKUP
     whois("example", "com");
@@ -53,8 +54,12 @@ int main() {
     list_tlds();
     list_registrars();
 
+    // SEARCH
+    search_whois("example", "com");
+
     // REMOVE
     remove_domain("example", "com");
+    remove_domain("example2", "com");
     remove_tld("com");
     remove_registrar("RegistrarCo");
 
