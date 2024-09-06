@@ -26,7 +26,7 @@ jobs:
     - name: Build DRS (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
-        gcc -o drs drs.c drs_functions.c -lpthread
+        gcc -o drs drs.c -lpthread
         tar -czvf drs-linux-x86_64.tar.gz drs
 
     - name: Build DRS (macOS)
