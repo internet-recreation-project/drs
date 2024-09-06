@@ -16,16 +16,23 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Set up GCC (Linux and macOS)
+    - name: Set up GCC (Linux)
+      if: matrix.os == 'ubuntu-latest'
       uses: egor-tensin/setup-gcc@v1
       with:
         version: latest
         platform: x64
 
-    - name: Build DRS (Linux and macOS)
-      if: matrix.os != 'windows-latest'
+    - name: Build DRS (Linux)
+      if: matrix.os == 'ubuntu-latest'
       run: |
         gcc -o drs drs.c drs_functions.c -lpthread
+        tar -czvf drs-${{ matrix.os }}.tar.gz drs
+
+    - name: Build DRS (macOS)
+      if: matrix.os == 'macos-latest'
+      run: |
+        clang -o drs drs.c drs_functions.c -lpthread
         tar -czvf drs-${{ matrix.os }}.tar.gz drs
 
     - name: Upload Release Asset
